@@ -3,4 +3,7 @@
 .idea/
 
 media/uploads/thumbnails/*
+!media/uploads/thumbnails/.gitkeep
+
 media/uploads/video_files/*
+!media/uploads/video_files/.gitkeep
