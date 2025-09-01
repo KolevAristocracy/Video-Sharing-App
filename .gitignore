@@ -2,5 +2,5 @@
 .venv/
 .idea/
 
-media/uploads/thumbnails
-media/uploads/video_files
+media/uploads/thumbnails/
+media/uploads/video_files/
