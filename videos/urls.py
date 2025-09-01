@@ -1,9 +1,12 @@
-from django.conf import settings
-from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include
 
 from videos import views as video_views
 
 urlpatterns = [
     path('', video_views.index, name='index'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('create/', video_views.CreateVideo.as_view(), name='create-video'),
+    path('<int:pk>/', video_views.DetailVideo.as_view(), name='video-details'),
+    path('<int:pk>/update', video_views.UpdateVideo.as_view(), name='video-update'),
+    path('<int:pk>/delete', video_views.DeleteVideo.as_view(), name='delete-video'),
+
+]

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{#{% load crispy_forms_tags %}#}
+{% load crispy_forms_filters %}
+
+
+{% block content %}
+<div class="container mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-sm-12">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="border p-3 rounded">
+          <legend class="border-bottom mb-4">Upload Video</legend>
+          {{ form|crispy }}
+        </fieldset>
+        <button class="btn btn-outline-info w-100 mt-3" type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
