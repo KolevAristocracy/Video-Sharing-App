@@ -6,7 +6,7 @@ from videos import views as video_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', video_views.index, name='index'),
+    path('', video_views.Index.as_view(), name='index'),
     path('videos/', include('videos.urls')),
     path('accounts/', include('allauth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
