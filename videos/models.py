@@ -1,8 +1,14 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
 from django.core.validators import FileExtensionValidator
 
+
+UserModel = get_user_model()
+
+
 class Video(models.Model):
+    uploader = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     description = models.TextField()
     video_file = models.FileField(

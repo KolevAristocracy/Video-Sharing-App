@@ -1,0 +1,20 @@
+{% load allauth %}
+{% comment %} djlint:off {% endcomment %}
+<{% if attrs.href %}a href="{{ attrs.href }}"{% else %}button{% endif %}
+    class="btn m-1
+        {% if 'action_primary' in attrs.name %}btn-outline-success
+        {% elif 'action_send' in attrs.name %}btn-outline-info
+        {% elif 'action_remove' in attrs.name %}btn-outline-danger
+        {% elif 'confirm' in attrs.name %}btn-outline-success w-100
+        {% else %}btn-outline-primary w-100
+        {% endif %}"
+
+{% if attrs.form %}form="{{ attrs.form }}"{% endif %}
+{% if attrs.id %}id="{{ attrs.id }}"{% endif %}
+{% if attrs.name %}name="{{ attrs.name }}"{% endif %}
+{% if attrs.value %}value="{{ attrs.value }}"{% endif %}
+{% if attrs.type %}type="{{ attrs.type }}"{% endif %}
+>
+{% slot %}
+{% endslot %}
+</{% if attrs.href %}a{% else %}button{% endif %}>

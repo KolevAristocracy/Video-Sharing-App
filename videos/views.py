@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
@@ -11,7 +12,7 @@ def index(request):
 def video_stream(request, filename):
     ...
 
-class CreateVideo(CreateView):
+class CreateVideo(LoginRequiredMixin, CreateView):
     model = Video
     fields = ['title', 'description', 'video_file', 'thumbnail']
     template_name = 'videos/create_video.html'
@@ -21,12 +22,12 @@ class CreateVideo(CreateView):
         return reverse('video-details', kwargs={'pk': self.object.pk})
 
 
-class DetailVideo(DetailView):
+class DetailVideo(LoginRequiredMixin, DetailView):
     model = Video
     template_name = 'videos/video_detail.html'
 
 
-class UpdateVideo(UpdateView):
+class UpdateVideo(LoginRequiredMixin, UpdateView):
     model = Video
     fields = ['title', 'description']
     template_name = 'videos/create_video.html'
@@ -35,7 +36,7 @@ class UpdateVideo(UpdateView):
         return reverse('video-details', kwargs={'pk': self.object.pk})
 
 
-class DeleteVideo(DeleteView):
+class DeleteVideo(LoginRequiredMixin, DeleteView):
     model = Video
     template_name = 'videos/delete_video.html'
 
