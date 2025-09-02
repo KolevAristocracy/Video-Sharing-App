@@ -42,6 +42,7 @@ AUTHENTICATION_BACKENDS = [
 
 PROJECT_APPS = [
     'videos',
+    'profiles',
 ]
 
 INSTALLED_APPS = [
@@ -152,6 +153,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Sign In Redirect
 LOGIN_REDIRECT_URL = 'index'
+
+# Additions to Sign Up form
+ACCOUNT_SIGNUP_FORM_CLASS = 'profiles.forms.ProfileForm'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

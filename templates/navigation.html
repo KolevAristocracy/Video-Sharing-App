@@ -15,6 +15,15 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'account_logout' %}">Sign Out</a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'profile' user.profile.pk %}"><img src="{{ user.profile.image.url }}"
+                                                                              width="35" height="35"
+                                                                              class="d-inline-block rounded-circle"
+                                                                              alt="Profile"/>
+          </a>
+        </li>
+
         {% else %}
         <li class="nav-item">
             <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
@@ -25,4 +34,4 @@
         {% endif %}
       </ul>
     </div>
-  </nav>
+</nav>

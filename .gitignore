@@ -7,3 +7,6 @@ media/uploads/thumbnails/*
 
 media/uploads/video_files/*
 !media/uploads/video_files/.gitkeep
+
+media/uploads/profile_pics/*
+!media/uploads/profile_pics/.gitkeep
