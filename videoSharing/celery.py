@@ -1,7 +1,7 @@
 import os
 from celery import Celery
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'VideoSharing.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'videoSharing.settings')
 
 app = Celery('project_name')
 app.config_from_object('django.conf:settings', namespace='CELERY')

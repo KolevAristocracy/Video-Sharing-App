@@ -85,3 +85,10 @@ class DeleteVideo(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         video = self.get_object()
         return self.request.user == video.uploader
+
+
+def download_video_view(request):
+    url = request.POST.get('url')
+    title = request.POST.get('title')
+
+    download_video
