@@ -23,6 +23,40 @@ class Video(models.Model):
         ]
     )
     date_posted = models.DateTimeField(default=timezone.now)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
+
+    def delete(self, using = None, keep_parents = False):
+        # Delete the file from storage
+        if self.video_file:
+            self.video_file.delete(save=False)
+
+        if self.thumbnail:
+            self.thumbnail.delete(save=False)
+
+        super().delete(using, keep_parents)
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    video = models.ForeignKey(Video, on_delete=models.CASCADE)
+    comment = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"User: {self.user} | Created On: {self.created_on.strftime('%b %d %Y %I:%M %p')}"
+
+

@@ -10,3 +10,5 @@ media/uploads/video_files/*
 
 media/uploads/profile_pics/*
 !media/uploads/profile_pics/.gitkeep
+
+videos/scraper/

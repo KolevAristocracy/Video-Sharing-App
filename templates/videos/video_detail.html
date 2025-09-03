@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
 
 {% block content %}
 	<div class="container">
@@ -18,11 +19,14 @@
 				<div class="row">
 					<div class="col-md-6 text-muted">
 						<p>{{ object.date_posted | date:"M d, Y" }}</p>
+                        <p>Category: {{ object.category }}</p>
+                        <p>Description: {{ object.description }}</p>
 					</div>
 					<div class="col-md-6 text-muted text-right">
 						<ion-icon class="video-icons" name="share-social-outline" type="button"  data-toggle="modal" data-target="#exampleModal">
                         Share
-                    </ion-icon>
+                        </ion-icon>
+                    </div>
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -51,5 +55,36 @@
             <a class="video-icons icon-color" href="{% url 'delete-video' object.pk %}"><ion-icon name="close-outline"></ion-icon></a>
         {% endif %}
 	</div>
+    <div>
+    <div class="row mt-3">
+        <div class="col-md-8 col-sm-12">
+            {% if user.is_authenticated %}
+                <form method="post">
+                    {% csrf_token %}
+                    <legend class="border-bottom mb-4">Leave a Comment!</legend>
+                    {{ form|crispy }}
+                    <button class="btn btn-outline-info btn-w-100">Post</button>
+                </form>
+                {% else %}
+                <a class="btn btn-outline-info btn-w-100" href="{% url 'account_login' %}">
+                    Sign In To Post a Comment!
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    {% for comment in comments %}
+        <div class="row mt-3">
+            <div class="col-md-8 col-sm-12 border-bottom">
+                <h5>
+                    {{ comment.user }} says:
+                </h5>
+                <p>
+                    {{ comment.comment }}
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</div>
 
 {% endblock content %}

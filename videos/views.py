@@ -1,9 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView
+from django.views import View
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 
-from videos.models import Video
+from videos.forms import CommentForm
+from videos.models import Video, Comment
 
 
 class Index(ListView):
@@ -14,7 +16,7 @@ class Index(ListView):
 
 class CreateVideo(LoginRequiredMixin, CreateView):
     model = Video
-    fields = ['title', 'description', 'video_file', 'thumbnail']
+    fields = ['title', 'description', 'video_file', 'thumbnail', 'category']
     template_name = 'videos/create_video.html'
 
     def form_valid(self, form):
@@ -25,9 +27,39 @@ class CreateVideo(LoginRequiredMixin, CreateView):
         return reverse('video-details', kwargs={'pk': self.object.pk})
 
 
-class DetailVideo(LoginRequiredMixin, DetailView):
-    model = Video
-    template_name = 'videos/video_detail.html'
+class DetailVideo(View):
+    def get(self, request, pk, *args, **kwargs):
+        video = Video.objects.get(pk=pk)
+
+        form = CommentForm()
+        comments = Comment.objects.filter(video=video).order_by('-created_on')
+        context = {
+            'object': video,
+            'comments': comments,
+            'form': form,
+        }
+
+        return render(request, 'videos/video_detail.html', context)
+
+    def post(self, request, pk, *args, **kwargs):
+        video = Video.objects.get(pk=pk)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = Comment(
+                user=self.request.user,
+                comment=form.cleaned_data['comment'],
+                video=video,
+            )
+            comment.save()
+
+        comments = Comment.objects.filter(video=video).order_by('-created_on')
+        context = {
+            'object': video,
+            'comments': comments,
+            'form': form,
+        }
+
+        return render(request, 'videos/video_detail.html', context)
 
 
 class UpdateVideo(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
