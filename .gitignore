@@ -14,5 +14,6 @@ media/uploads/profile_pics/*
 media/uploads/converted/
 
 videos/scraper/
+download_videos/
 
 docker-compose.yml
