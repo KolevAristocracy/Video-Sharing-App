@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        {% if query_list %}
+        {% for object in query_list %}
+        <div class="col-md-3 col-12 mt-5 me-md-2">
+            <div class="card h-100 border-0 p-3">
+                <a href="{% url 'video-details' object.pk %}">
+                    <img src="/media/{{ object.thumbnail }}" class="img-fluid" alt="{{ object.title }}">
+                </a>
+                <div class="card-body text-center">
+                    <a href="{% url 'video-details' object.pk %}" class="stretched-link text-decoration-none">
+                        <h5>{{ object.title }}</h5>
+                    </a>
+                    <p class="text-muted m-0">{{ object.uploader }}</p>
+                    <p class="text-muted">{{ object.date_posted|date:"M d, Y" }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+            {% else %}
+            <h1 style="text-align: center">No Videos Found.</h1>
+    {% endif %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 my-3">
+            <h2>{{ category.name }} Videos</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        {% for video in videos %}
+        <div class="col-md-3 col-12 mt-5 me-md-2">
+            <div class="card h-100 border-0 p-3">
+                <a href="{% url 'video-details' video.pk %}">
+                    <img src="/media/{{ video.thumbnail }}" class="img-fluid" alt="{{ video.title }}">
+                </a>
+                <div class="card-body text-center">
+                    <a href="{% url 'video-details' video.pk %}" class="stretched-link text-decoration-none">
+                        <h5>{{ video.title }}</h5>
+                    </a>
+                    <p class="text-muted m-0">{{ video.uploader }}</p>
+                    <p class="text-muted">{{ video.date_posted|date:"M d, Y" }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
